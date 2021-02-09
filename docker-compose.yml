@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   springboot:
-    image: redbull200/springbootmongo
+    image: redbull200/springbootmongo:latest
     restart: always # This will be ignored if we deploy in docker swarm
     environment:
     - MONGO_DB_HOSTNAME=mymongo
