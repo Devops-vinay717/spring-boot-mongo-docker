@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   springboot:
-    image: redbull200/springbootmongo:${buildnumber}
+    image: redbull200/springbootmongo
     restart: always # This will be ignored if we deploy in docker swarm
     environment:
     - MONGO_DB_HOSTNAME=mymongo
@@ -32,7 +32,6 @@ services:
     - MONGO_INITDB_ROOT_PASSWORD=vinay123
     volumes:
       - mongodb:/data/db
-    restart: always
     networks:
     - springappnetwork
     
