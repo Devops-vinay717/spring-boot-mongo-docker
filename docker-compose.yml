@@ -2,7 +2,7 @@
 version: "3.0"
 services: 
     springbootapp:
-        image: redbull200/springboot-mongo:$IMAGEVERSION
+        image: redbull200/springboot-mongo:IMAGEVERSION
         ports: 
             - 8080:8080
         environment: 
