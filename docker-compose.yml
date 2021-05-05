@@ -1,41 +1,28 @@
-version: '3.1'
-
-services:
-  springboot:
-    image: redbull200/springbootmongo:latest
-    environment:
-    - MONGO_DB_HOSTNAME=mymongo
-    - MONGO_DB_USERNAME=vinay
-    - MONGO_DB_PASSWORD=vinay123
-    ports:
-      - 8080:8080
-    working_dir: /opt/app
-    depends_on:
-      - mongo
-    networks:
-    - springappnetwork  
-    deploy:  # This will be considered only in docker swarm.
-      replicas: 2
-      update_config:
-        parallelism: 1
-        delay: 20s
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 5
-
-  mongo:
-    image: mongo
-    environment:
-    - MONGO_INITDB_ROOT_USERNAME=vinay
-    - MONGO_INITDB_ROOT_PASSWORD=vinay123
-    volumes:
-      - mongodb:/data/db
-    networks:
-    - springappnetwork
-    
-volumes:
-  mongodb:
-    
-networks:
-  springappnetwork:
+#In this compose file we use exixting volume and exixting network
+version: "3.0"
+services: 
+    springbootapp:
+        image: redbull200/springboot-mongo:$IMAGEVERSION
+        ports: 
+            - 8080:8080
+        environment: 
+            - MONGO_DB_HOSTNAME=mongodb
+            - MONGO_DB_USERNAME=devdb
+            - MONGO_DB_PASSWORD=devdb@123
+        networks: 
+            - mybridge
+    mongodb:
+        image: mongo
+        environment: 
+            - MONGO_INITDB_ROOT_USERNAME=devdb
+            - MONGO_INITDB_ROOT_PASSWORD=devdb@123
+        networks: 
+            - mybridge
+        volumes: 
+            - mongodbvolume:/data/db
+volumes: 
+    mongodbvolume:
+        external: true
+networks: 
+    mybridge:
+        external: true
